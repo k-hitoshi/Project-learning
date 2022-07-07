@@ -16,21 +16,29 @@
     <div class="container" mt-3>
         <div id="root">wait...</div>
     </div>
-    <script type="text/babel" src="./script(list2-13).js"></script>
-    <!-- <script type="text/babel">
+    <script type="text/babel">
         let dom = document.querySelector('#root')
-        let el =
+
+        let title = "React page."
+        let message = "メッセージを表示します。"
+
+        var counter = 0
+
+        let el = (
             <div>
-                <h2>JSX sample</h2>
-                <p>This is sample message.</p>
+                <h4>{title}</h4>
+                <h5>{message}</h5>
+                <h5 className="alert alert-primary">
+                    count: {counter}
+                </h5>
             </div>
-        // let el = (
-        //     <div>
-        //         <h2>JSX sample</h2>
-        //         <p>This is sample message.</p>
-        //     </div>
-        // )
-        ReactDOM.render(el, dom)
-    </script> -->
+        )
+
+        setInterval(() => {
+            counter++
+            ReactDOM.render(el, dom)
+        }, 1000)
+        
+    </script>
 </body>
 </html>

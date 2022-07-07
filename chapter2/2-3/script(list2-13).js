@@ -1,4 +1,4 @@
-<script type="text/babel">
+{/* <script type="text/babel"> */}
 let dom = document.querySelector('#root')
 let el = (
     <div>
@@ -7,4 +7,4 @@ let el = (
     </div>
 )
 ReactDOM.render(el, dom)
-</script>
+// </script>S
