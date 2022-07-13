@@ -28,6 +28,26 @@
   color: #61dafb;
 }
 
+h1 {
+  text-align: right;
+  padding: 0px 50px 10px 80px;
+  margin: 0px 0px 20px 0px;
+  background-color: #999;
+}
+
+.subtitle {
+  margin: 20px 0px;
+  color: #999;
+  font-weight: bolder;
+  font-size: 50pt;
+}
+
+p {
+  margin: 5px 0px;
+  color: #666;
+  font-size: 16pt;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
