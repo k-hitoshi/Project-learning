@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 // list 3-23
@@ -368,7 +368,7 @@ import './App.css';
 //         </div>
 //       </div>
 //     )
-//   }  
+//   }
 // }
 // class Title extends Component {
 //   static contextType = SampleContext
@@ -395,72 +395,158 @@ import './App.css';
 // }
 
 // リスト 3-32
-let theme = {
-  light: {
-    styles: {
-      backgroundColor: '#f0f9ff',
-      color: '#00f',
-    },
-    head: 'bg-primary text-white display-4 mb-4',
-    alert: 'alert alert-primary my-3',
-    text: 'text-primary m-3',
-    foot: 'py-4',
-  },
-  dark: {
-    styles: {
-      backgroundColor: '#336',
-      color: '#eef',
-    },
-    head: 'bg-secondary text-white display-4 mb-4',
-    alert: 'alert alert-dark my-3',
-    text: 'text-light m-3',
-    foot: 'py-4'
+// let theme = {
+//   light: {
+//     styles: {
+//       backgroundColor: '#f0f9ff',
+//       color: '#00f',
+//     },
+//     head: 'bg-primary text-white display-4 mb-4',
+//     alert: 'alert alert-primary my-3',
+//     text: 'text-primary m-3',
+//     foot: 'py-4',
+//   },
+//   dark: {
+//     styles: {
+//       backgroundColor: '#336',
+//       color: '#eef',
+//     },
+//     head: 'bg-secondary text-white display-4 mb-4',
+//     alert: 'alert alert-dark my-3',
+//     text: 'text-light m-3',
+//     foot: 'py-4'
+//   }
+// }
+
+// const ThemeContext = React.createContext(theme.dark) //★
+
+// class App extends Component {
+//   static contextType = ThemeContext
+
+//   render() {
+//     return (
+//       <div style={this.context.styles}>
+//         <h1 className={this.context.head}>React</h1>
+//         <div className='container'>
+//           <Title value='Context page' />
+//           <Message value='This is Context sample.' />
+//           <Message value='※これはテーマのサンプルです。' />
+//           <div className={this.context.foot}></div>
+//         </div>
+//       </div>
+//     )
+//   }
+// }
+
+// class Title extends Component {
+//   static contextType = ThemeContext
+
+//   render() {
+//     return (
+//       <div className={this.context.alert}>
+//         <h2 style={this.context.styles}>{this.props.value}</h2>
+//       </div>
+//     )
+//   }
+// }
+
+// class Message extends Component {
+//   static contextType = ThemeContext
+
+//   render() {
+//     return (
+//       <div style={this.context.styles}>
+//         <p className={this.context.text}>{this.props.value}</p>
+//       </div>
+//     )
+//   }
+// }
+// リスト4-1
+// function App() {
+//   const [message] = useState("Welcome to Hooks!")
+
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <div className="alert alert-primary text-center">
+//           <p className="h5">{message}.</p>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト4-2
+// function App() {
+//   const [count, setCount] = useState(0)
+//   const clickFunc = () => {
+//     setCount(count + 1)
+//   }
+
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <div className="alert alert-primary text-center">
+//           <p className="h1 mb-3">click: {count} times!</p>
+//             <button className="btn btn-primary" onClick={clickFunc}>
+//               Click me
+//             </button>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+// リスト4-3
+function App() {
+  const [count, setCount] = useState(0)
+  const [flag, setFlag] = useState(false)
+  const clickFunc = () => {
+    setCount(count + 1)
   }
-}
+  const changeFlag = (e) => {
+    setFlag(e.target.checked) //★
+  }
 
-const ThemeContext = React.createContext(theme.dark) //★
-
-class App extends Component {
-  static contextType = ThemeContext
-
-  render() {
-    return (
-      <div style={this.context.styles}>
-        <h1 className={this.context.head}>React</h1>
-        <div className='container'>
-          <Title value='Context page' />
-          <Message value='This is Context sample.' />
-          <Message value='※これはテーマのサンプルです。' />
-          <div className={this.context.foot}></div>
+  return (
+    <div>
+      <h1 className="bg-primary text-white display-4">React</h1>
+      <div className="container">
+        <h4 className="my-3">Hooks sample</h4>
+        {flag ?
+        <div className="alert alert-primary text-center">
+          <p className="h5 mb-3">click: {count} times!</p>
+          <div>
+            <button className="btn btn-primary" onClick={clickFunc}>
+              Click me
+            </button>
+          </div>
+        </div>
+        :
+        <div className="card p-3 border-primary text-center">
+          <p className="h5 mb-3 text-left text-primary">
+            click: {count} times!
+          </p>
+          <div>
+            <button className="btn btnprimary" onClick={clickFunc}>
+              Click me
+            </button>
+          </div>
+        </div>
+        }
+        <div className="form-group h4 text-center pt-3">
+          <input type="checkbox" className="form-check-input" id="check1" onChange={changeFlag} />
+          <label className="form-check-label" htmlfor="ckeck1">change form style</label>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-class Title extends Component {
-  static contextType = ThemeContext
-
-  render() {
-    return (
-      <div className={this.context.alert}>
-        <h2 style={this.context.styles}>{this.props.value}</h2>
-      </div>
-    )
-  }
-}
-
-class Message extends Component {
-  static contextType = ThemeContext
-
-  render() {
-    return (
-      <div style={this.context.styles}>
-        <p className={this.context.text}>{this.props.value}</p>
-      </div>
-    )
-  }
-}
+// リスト4-3
 
 export default App;
 
