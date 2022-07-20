@@ -228,64 +228,239 @@ import './App.css';
 //   }
 // }
 
+// リスト3-29
+// class App extends Component {
+//   input = ''
+
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       title: 'input form',
+//       message: 'type your name.',
+//       max: 10, //★
+//     }
+//     this.doCheck = this.doCheck.bind(this)
+//   }
+
+//   doCheck(e) {
+//     alert(
+//       e.target.value + 'は長すぎます。（最大' + this.state.max + '文字）'
+//     )
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <h1 className="bg-primary text-white display-4">React</h1>
+//         <div className="container">
+//           <h4>{this.state.title}</h4>
+//           <Message maxlength={this.state.max} onCheck={this.doCheck} />
+//         </div>
+//       </div>
+//     )
+//   }
+// }
+
+// class Message extends Component {
+//   li = {
+//     fontSize: '14pt',
+//     fontWeight: 'bold',
+//     color: '#090',
+//   }
+
+//   constructor(props) {
+//     super(props)
+//     this.doChange = this.doChange.bind(this)
+//   }
+
+//   doChange(e) {
+//     if (e.target.value.length > this.props.maxlength) {
+//       this.props.onCheck(e)
+//       e.target.value = e.target.value.substr(0, this.props.maxlength)
+//     }
+//   }
+
+//   render() {
+//     return (
+//       <div className="form-group">
+//         <label>input:</label>
+//         <input type="text" className="form-control" onChange={this.doChange} />
+//       </div>
+//     )
+//   }
+// }
+
+// リスト3-30
+
+// let data = {
+//   title: 'React-Context',
+//   message: 'this is sample message'
+// }
+
+// const SampleContext = React.createContext(data)
+// class App extends Component {
+//   render() {
+//     return (
+//       <div>
+//         <h1 className="bg-primary text-white display-4">React</h1>
+//         <div className="container">
+//           <Title />
+//           <Message />
+//         </div>
+//       </div>
+//     )
+//   }
+// }
+
+// class Title extends Component {
+//   static contextType = SampleContext
+
+//   render() {
+//     return (
+//       <div className="card p-2 my-3">
+//         <h2>{this.context.title}</h2>
+//       </div>
+//     )
+//   }
+// }
+
+// class Message extends Component {
+//   static contextType = SampleContext
+
+//   render() {
+//     return (
+//       <div className="alert alert-primary">
+//         <p>{this.context.message}</p>
+//       </div>
+//     )
+//   }
+// }
+
+// リスト3-31
+// let data = {
+//   title: 'React-Context',
+//   message: 'this is sample message.',
+// }
+
+// const SampleContext = React.createContext(data)
+
+// class App extends Component {
+//   newdata = {
+//     title: '新しいタイトル',
+//     message: 'これは新しいメッセージです。',
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <h1 className="bg-primary text-white display-4">React</h1>
+//         <div className="container">
+//           <Title />
+//           <Message />
+//           <hr />
+//           <SampleContext.Provider value={this.newdata}>
+//             <Title />
+//             <Message />
+//           </SampleContext.Provider>
+//           <hr />
+//           <Title />
+//           <Message />
+//         </div>
+//       </div>
+//     )
+//   }  
+// }
+// class Title extends Component {
+//   static contextType = SampleContext
+
+//   render() {
+//     return (
+//       <div className="card p-2 my-3">
+//         <h2>{this.context.title}</h2>
+//       </div>
+//     )
+//   }
+// }
+
+// class Message extends Component {
+//   static contextType = SampleContext
+
+//   render() {
+//     return (
+//       <div className="alert alert-primary">
+//         <p>{this.context.message}</p>
+//       </div>
+//     )
+//   }
+// }
+
+// リスト 3-32
+let theme = {
+  light: {
+    styles: {
+      backgroundColor: '#f0f9ff',
+      color: '#00f',
+    },
+    head: 'bg-primary text-white display-4 mb-4',
+    alert: 'alert alert-primary my-3',
+    text: 'text-primary m-3',
+    foot: 'py-4',
+  },
+  dark: {
+    styles: {
+      backgroundColor: '#336',
+      color: '#eef',
+    },
+    head: 'bg-secondary text-white display-4 mb-4',
+    alert: 'alert alert-dark my-3',
+    text: 'text-light m-3',
+    foot: 'py-4'
+  }
+}
+
+const ThemeContext = React.createContext(theme.dark) //★
+
 class App extends Component {
-  input = ''
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      title: 'input form',
-      message: 'type your name.',
-      max: 10, //★
-    }
-    this.doCheck = this.doCheck.bind(this)
-  }
-
-  doCheck(e) {
-    alert(
-      e.target.value + 'は長すぎます。（最大' + this.state.max + '文字）'
-    )
-  }
+  static contextType = ThemeContext
 
   render() {
     return (
-      <div>
-        <h1 className="bg-primary text-white display-4">React</h1>
-        <div className="container">
-          <h4>{this.state.title}</h4>
-          <Message maxlength={this.state.max} onCheck={this.doCheck} />
+      <div style={this.context.styles}>
+        <h1 className={this.context.head}>React</h1>
+        <div className='container'>
+          <Title value='Context page' />
+          <Message value='This is Context sample.' />
+          <Message value='※これはテーマのサンプルです。' />
+          <div className={this.context.foot}></div>
         </div>
       </div>
     )
   }
 }
 
-class Message extends Component {
-  li = {
-    fontSize: '14pt',
-    fontWeight: 'bold',
-    color: '#090',
-  }
-
-  constructor(props) {
-    super(props)
-    this.doChange = this.doChange.bind(this)
-  }
-
-  doChange(e) {
-    if (e.target.value.length > this.props.maxlength) {
-      this.props.onCheck(e)
-      e.target.value = e.target.value.substr(0, this.props.maxlength)
-    }
-  }
+class Title extends Component {
+  static contextType = ThemeContext
 
   render() {
     return (
-      <div className="form-group">
-        <label>input:</label>
-        <input type="text" className="form-control" onChange={this.doChange} />
+      <div className={this.context.alert}>
+        <h2 style={this.context.styles}>{this.props.value}</h2>
       </div>
     )
   }
 }
+
+class Message extends Component {
+  static contextType = ThemeContext
+
+  render() {
+    return (
+      <div style={this.context.styles}>
+        <p className={this.context.text}>{this.props.value}</p>
+      </div>
+    )
+  }
+}
+
 export default App;
+
