@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 // list 3-23
@@ -709,82 +709,228 @@ import './App.css';
 // }
 
 // リスト4-8
+// function AlertMessage(props) {
+//   const data = props.data
+//   const msg = JSON.stringify(data)
 
+//   return (
+//     <div className="alert alert-primary h5 test-primary">
+//       <h5>{msg}</h5>
+//       <hr />
+//       <table className="table h6">
+//         <tbody>
+//           <tr><th>Name</th><td>{data.name}</td></tr>
+//           <tr><th>Mail</th><td>{data.mail}</td></tr>
+//           <tr><th>Age</th><td>{data.age}</td></tr>
+//         </tbody>
+//       </table>
+//     </div>
+//   )
+// }
+
+// function App() {
+//   const [name, setName] = useState('')
+//   const [mail, setMeil] = useState('')
+//   const [age, setAge] = useState(0)
+//   const [form, setForm] = useState({
+//     name: 'no name',
+//     mail: 'no mail',
+//     age: 0,
+//   })
+
+//   const doChangeName = (e) => {
+//     setName(e.target.value)
+//   }
+
+//   const doChangeMail = (e) => {
+//     setMeil(e.target.value)
+//   }
+
+//   const doChangeAge = (e) => {
+//     setAge(e.target.value)
+//   }
+
+//   const doSubmit = (e) => {
+//     setForm({
+//       name: name,
+//       mail: mail,
+//       age: age
+//     })
+//     e.preventDefault()
+//   }
+
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <AlertMessage data={form} setData={setForm} />
+//         <form onSubmit={doSubmit}>
+//           <div className="form-group">
+//             <label>Name:</label>
+//             <input type="text" className="form-control" onChange={doChangeName} />
+//           </div>
+//           <div className="form-group">
+//             <label>Mail:</label>
+//             <input type="text" className="form-control" onChange={doChangeMail} />
+//           </div>
+//           <div className="form-group">
+//             <label>Age:</label>
+//             <input type="number" className="form-control" onChange={doChangeAge} />
+//           </div>
+//           <input type="submit" className="btn btn-primary" value="Click"/>
+//         </form>
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト4-9
+// function AlertMessage(props) {
+//   return (
+//     <div className="alert alert-primary h5 text-primary">
+//       <h5>{props.msg}</h5>
+//     </div>
+//   )
+// }
+
+// function App() {
+//   const [val, setVal] = useState(0)
+//   const [msg, setMsg] = useState('set a number...')
+
+//   const doChange = (e) => {
+//     setVal(e.target.value)
+//   }
+
+//   useEffect(() => {
+//     let total = 0
+//     for (let i = 0; i <= val; i++) {
+//       total += i
+//     }
+//     setMsg('total: ' + total + '.')
+//   })
+
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <AlertMessage msg={msg} />
+//         <div className="form-group">
+//           <label>Input:</label>
+//           <input className="form-control" type="number" onChange={doChange} />
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト4-10
+// function AlertMessage(props) {
+//   return (
+//     <div className="alert alert-primary h5 text-primary">
+//         <h5>{props.msg}</h5>
+//     </div>
+//   )
+// }
+
+// function App() {
+//   const [val, setVal] = useState(1000)
+//   const [tax1, setTax1] = useState(0)
+//   const [tax2, setTax2] = useState(0)
+//   const [msg, setMsg] = useState(<p>set a price...</p>)
+
+//   const doChange = (e) => {
+//     setVal(e.target.value)
+//   }
+
+//   const doAction = () => {
+//     let res = (
+//       <div>
+//         <p>軽減税率(8%) : {tax1} 円</p>
+//         <p>軽減税率(10%) : {tax2} 円</p>
+//       </div>
+//     )
+//     setMsg(res)
+//   }
+
+//   useEffect(() => {
+//     setTax1(Math.floor(val * 1.08))
+//   })
+
+//   useEffect(() => {
+//     setTax2(Math.floor(val * 1.11))
+//   })
+
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div calssName="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <AlertMessage msg={msg} />
+//         <div className="form-group">
+//           <label>Input:</label>
+//           <input className="form-control" type="number" onChange={doChange}/>
+//         </div>
+//         <button className="btn btn-primary" onClick={doAction}>
+//           Calc
+//         </button>
+//       </div>
+//     </div>
+//   )
+
+// }
+
+// リスト 4-11
 function AlertMessage(props) {
-  const data = props.data
-  const msg = JSON.stringify(data)
-
   return (
-    <div className="alert alert-primary h5 test-primary">
-      <h5>{msg}</h5>
-      <hr />
-      <table className="table h6">
-        <tbody>
-          <tr><th>Name</th><td>{data.name}</td></tr>
-          <tr><th>Mail</th><td>{data.mail}</td></tr>
-          <tr><th>Age</th><td>{data.age}</td></tr>
-        </tbody>
-      </table>
+    <div className="alert alert-primary h5 text-primary">
+        <h5>{props.msg}</h5>
     </div>
   )
 }
 
 function App() {
-  const [name, setName] = useState('')
-  const [mail, setMeil] = useState('')
-  const [age, setAge] = useState(0)
-  const [form, setForm] = useState({
-    name: 'no name',
-    mail: 'no mail',
-    age: 0,
+  const [val, setVal] = useState(1000)
+  const [tax1, setTax1] = useState(0)
+  const [tax2, setTax2] = useState(0)
+  const [msg, setMsg] = useState(<p>set a price...</p>)
+
+  const doChange = (e) => {
+    setVal(e.target.value)
+  }
+
+  useEffect(() => {
+    let res = (
+      <div>
+        <p>軽減税率(8%) : {tax1} 円</p>
+        <p>軽減税率(10%) : {tax2} 円</p>
+      </div>
+    )
+    setMsg(res)}, [tax1, tax2]
+  )
+
+  useEffect(() => {
+    setTax1(Math.floor(val * 1.08))
   })
 
-  const doChangeName = (e) => {
-    setName(e.target.value)
-  }
-
-  const doChangeMail = (e) => {
-    setMeil(e.target.value)
-  }
-
-  const doChangeAge = (e) => {
-    setAge(e.target.value)
-  }
-
-  const doSubmit = (e) => {
-    setForm({
-      name: name,
-      mail: mail,
-      age: age
-    })
-    e.preventDefault()
-  }
+  useEffect(() => {
+    setTax2(Math.floor(val * 1.11))
+  })
 
   return (
     <div>
       <h1 className="bg-primary text-white display-4">React</h1>
-      <div className="container">
+      <div calssName="container">
         <h4 className="my-3">Hooks sample</h4>
-        <AlertMessage data={form} setData={setForm} />
-        <form onSubmit={doSubmit}>
-          <div className="form-group">
-            <label>Name:</label>
-            <input type="text" className="form-control" onChange={doChangeName} />
-          </div>
-          <div className="form-group">
-            <label>Mail:</label>
-            <input type="text" className="form-control" onChange={doChangeMail} />
-          </div>
-          <div className="form-group">
-            <label>Age:</label>
-            <input type="number" className="form-control" onChange={doChangeAge} />
-          </div>
-          <input type="submit" className="btn btn-primary" value="Click"/>
-        </form>
+        <AlertMessage msg={msg} />
+        <div className="form-group">
+          <label>Input:</label>
+          <input className="form-control" type="number" onChange={doChange}/>
+        </div>
       </div>
     </div>
   )
-
 }
 
 export default App;
