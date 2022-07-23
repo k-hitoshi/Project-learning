@@ -501,14 +501,263 @@ import './App.css';
 //   )
 // }
 // リスト4-3
+// function App() {
+//   const [count, setCount] = useState(0)
+//   const [flag, setFlag] = useState(false)
+//   const clickFunc = () => {
+//     setCount(count + 1)
+//   }
+//   const changeFlag = (e) => {
+//     setFlag(e.target.checked) //★
+//   }
+
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         {flag ?
+//         <div className="alert alert-primary text-center">
+//           <p className="h5 mb-3">click: {count} times!</p>
+//           <div>
+//             <button className="btn btn-primary" onClick={clickFunc}>
+//               Click me
+//             </button>
+//           </div>
+//         </div>
+//         :
+//         <div className="card p-3 border-primary text-center">
+//           <p className="h5 mb-3 text-left text-primary">
+//             click: {count} times!
+//           </p>
+//           <div>
+//             <button className="btn btnprimary" onClick={clickFunc}>
+//               Click me
+//             </button>
+//           </div>
+//         </div>
+//         }
+//         <div className="form-group h4 text-center pt-3">
+//           <input type="checkbox" className="form-check-input" id="check1" onChange={changeFlag} />
+//           <label className="form-check-label" htmlfor="ckeck1">change form style</label>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト4-4
+// function AllertMessage() {
+//   return (
+//     <div className="alert alert-primary h5 text-primary">
+//       This is Alert message!
+//     </div>
+//   )
+// }
+
+// function CardMessage() {
+//   return (
+//     <div className="card p-3 h5 border-primary text-center">
+//       This is Card message!
+//     </div>
+//   )
+// }
+
+// function App() {
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <AllertMessage />
+//         <CardMessage />
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト4-5
+// function AlertMessage(props) {
+//   return (
+//     <div className="alert alert-primary h5 text-primary">
+//       {props.message}
+//     </div>
+//   )
+// }
+
+// function CardMessage(props) {
+//   return (
+//     <div className="card p-3 border-primary text-center">
+//       {props.message}
+//     </div>
+//   )
+// }
+
+// function App () {
+//   const [msg] = useState("This is sample message!")
+
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <AlertMessage message={msg} />
+//         <CardMessage message={msg} />
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト4-6
+// function AlertMessage(props) {
+//   return (
+//     <div className="alert alert-primary h5 text-primary">
+//       {props.message}
+//     </div>
+//   )
+// }
+
+// function CardMessage(props) {
+//   return (
+//     <div className="card p-3 h5 border-primary text-center">
+//       {props.message}
+//     </div>
+//   )
+// }
+
+// function App() {
+//   const [msg, setMsg] =useState("This is sample message!")
+
+//   const doAction = () => {
+//     let res = window.prompt('type you name!')
+//     setMsg('Hello, ' + res + '!!')
+//   }
+
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <AlertMessage message={msg} />
+//         <CardMessage message={msg} />
+//         <div className="text-center">
+//           <button className="btn btn-primary" onClick={doAction}>
+//             Click me!
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト4-7
+// function AlertMessage(props) {
+//   const data = ["Hello!", "Welcome...", "Good-bye?"]
+
+//   const actionAlert = () => {
+//     const re = data[Math.floor(Math.random() * data.length)]
+//     props.setAlert('message: ' + re + '.')
+//   }
+
+//   return (
+//     <div className="alert alert-primary h5 text-primary">
+//       <h5>{props.alert}</h5>
+//       <button className="btn btn-primary" onClick={actionAlert}>
+//         Click me!
+//       </button>
+//     </div>
+//   )
+// }
+
+// function CardMessage(props) {
+//   const [count, setCount] = useState(0)
+
+//   const actionCard = () => {
+//     setCount(count + 1)
+//     props.setCard('card counter: ' + count + ' count.')
+//   }
+
+//   return (
+//     <div className="card p-3 border-dark text-center">
+//       <h5>{props.card}</h5>
+//       <button className="btn btn-secondary" onClick={actionCard}>
+//         Click me!
+//       </button>
+//     </div>
+//   )
+// }
+
+// function App() {
+//   const [alert, setAlert] = useState('This is alert message!')
+//   const [card, setCard] = useState('This is card message!')
+
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <AlertMessage alert={alert} setAlert={setAlert} />
+//         <CardMessage card={card} setCard={setCard} />
+//         <hr />
+//         <div className="text-right">
+//           <p>{alert}</p>
+//           <p>{card}</p>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト4-8
+
+function AlertMessage(props) {
+  const data = props.data
+  const msg = JSON.stringify(data)
+
+  return (
+    <div className="alert alert-primary h5 test-primary">
+      <h5>{msg}</h5>
+      <hr />
+      <table className="table h6">
+        <tbody>
+          <tr><th>Name</th><td>{data.name}</td></tr>
+          <tr><th>Mail</th><td>{data.mail}</td></tr>
+          <tr><th>Age</th><td>{data.age}</td></tr>
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
 function App() {
-  const [count, setCount] = useState(0)
-  const [flag, setFlag] = useState(false)
-  const clickFunc = () => {
-    setCount(count + 1)
+  const [name, setName] = useState('')
+  const [mail, setMeil] = useState('')
+  const [age, setAge] = useState(0)
+  const [form, setForm] = useState({
+    name: 'no name',
+    mail: 'no mail',
+    age: 0,
+  })
+
+  const doChangeName = (e) => {
+    setName(e.target.value)
   }
-  const changeFlag = (e) => {
-    setFlag(e.target.checked) //★
+
+  const doChangeMail = (e) => {
+    setMeil(e.target.value)
+  }
+
+  const doChangeAge = (e) => {
+    setAge(e.target.value)
+  }
+
+  const doSubmit = (e) => {
+    setForm({
+      name: name,
+      mail: mail,
+      age: age
+    })
+    e.preventDefault()
   }
 
   return (
@@ -516,37 +765,27 @@ function App() {
       <h1 className="bg-primary text-white display-4">React</h1>
       <div className="container">
         <h4 className="my-3">Hooks sample</h4>
-        {flag ?
-        <div className="alert alert-primary text-center">
-          <p className="h5 mb-3">click: {count} times!</p>
-          <div>
-            <button className="btn btn-primary" onClick={clickFunc}>
-              Click me
-            </button>
+        <AlertMessage data={form} setData={setForm} />
+        <form onSubmit={doSubmit}>
+          <div className="form-group">
+            <label>Name:</label>
+            <input type="text" className="form-control" onChange={doChangeName} />
           </div>
-        </div>
-        :
-        <div className="card p-3 border-primary text-center">
-          <p className="h5 mb-3 text-left text-primary">
-            click: {count} times!
-          </p>
-          <div>
-            <button className="btn btnprimary" onClick={clickFunc}>
-              Click me
-            </button>
+          <div className="form-group">
+            <label>Mail:</label>
+            <input type="text" className="form-control" onChange={doChangeMail} />
           </div>
-        </div>
-        }
-        <div className="form-group h4 text-center pt-3">
-          <input type="checkbox" className="form-check-input" id="check1" onChange={changeFlag} />
-          <label className="form-check-label" htmlfor="ckeck1">change form style</label>
-        </div>
+          <div className="form-group">
+            <label>Age:</label>
+            <input type="number" className="form-control" onChange={doChangeAge} />
+          </div>
+          <input type="submit" className="btn btn-primary" value="Click"/>
+        </form>
       </div>
     </div>
   )
-}
 
-// リスト4-3
+}
 
 export default App;
 
