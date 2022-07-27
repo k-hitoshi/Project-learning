@@ -881,53 +881,236 @@ import './App.css';
 
 // }
 
-// リスト 4-11
-function AlertMessage(props) {
+// // リスト 4-11,4-12
+// function AlertMessage(props) {
+//   return (
+//     <div className="alert alert-primary h5 text-primary">
+//         <h5>{props.msg}</h5>
+//     </div>
+//   )
+// }
+
+// function App() {
+//   const [val, setVal] = useState(1000)
+//   const [tax1, setTax1] = useState(0)
+//   const [tax2, setTax2] = useState(0)
+//   const [msg, setMsg] = useState(<p>set a price...</p>)
+
+//   const doChange = (e) => {
+//     setVal(e.target.value)
+//     let res = (
+//       <div>
+//         <p>軽減税率(8%) : {tax1} 円</p>
+//         <p>軽減税率(10%) : {tax2} 円</p>
+//       </div>
+//     )
+//     setMsg(res)
+//   }
+
+//   // useEffect(() => {
+//   //   let res = (
+//   //     <div>
+//   //       <p>軽減税率(8%) : {tax1} 円</p>
+//   //       <p>軽減税率(10%) : {tax2} 円</p>
+//   //     </div>
+//   //   )
+//   // //   setMsg(res)}, [tax1, tax2]
+//   // // )
+//   //   setMsg(res)
+//   // })
+
+//   useEffect(() => {
+//     setTax1(Math.floor(val * 1.08))
+//   })
+
+//   useEffect(() => {
+//     setTax2(Math.floor(val * 1.11))
+//   })
+
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <AlertMessage msg={msg} />
+//         <div className="form-group">
+//           <label>Input:</label>
+//           <input className="form-control" type="number" onChange={doChange}/>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト4-13,14
+// function useCounter() {
+//   const [num, setNum] = useState(0)
+
+//   const count = () => {
+//     setNum(num + 1)
+//   }
+
+//   return [num, count]
+// }
+
+// function AlertMessage(props) {
+//   const [counter, plus] = useCounter()
+
+//   return (
+//     <div className="alert alert-primary h5 text-center">
+//       <h4>count: {counter}.</h4>
+//       <button className="btn btn-primary" onClick={plus}>
+//         count
+//       </button>
+//     </div>
+//   )
+// }
+
+// function App() {
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <AlertMessage />
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト4-15,16
+// const useTax = (t1, t2) => {
+//   // stateで値を保管する為に用意
+//   const [price, setPrice] = useState(0)
+//   const [tx1] = useState(t1)
+//   const [tx2] = useState(t2)
+
+//   const tax = () => {
+//     return Math.floor(price * (1.0 + tx1 / 100))
+//   }
+//   const reduced =() => {
+//     return Math.floor(price * (1.0 + tx2 / 100))
+//   }
+
+//   return [price, tax, reduced, setPrice]
+// }
+
+// function AlertMessage(props) {
+//   const [price, tax, reduced, setPrice] = useTax(10, 8)
+
+//   const doChange = (e) => {
+//     setPrice(e.target.value) //★
+//   }
+
+//   return (
+//     <div className="alert alert-primary h5">
+//       <p className="h5">通常税率： {tax()}円.</p>
+//       <p className="h5">軽減税率； {reduced()}円.</p>
+//       <div className="form-group">
+//         <label className="form-group-label">Price:</label>
+//         <input className="form-control" type="number" onChange={doChange} value={price} />
+//       </div>
+//     </div>
+//   )
+// }
+
+// function App() {
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <AlertMessage />
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト 4-17,18
+
+// 合計計算関数
+const total = (a) => {
+  let re = 0
+  for(let i=0; i<=a; i++) {
+    re += i
+  }
+  return re
+}
+
+// 消費税計算の関数
+const tax = (a) => {
+  return Math.floor(a * 1.1)
+}
+
+// 数値を計算してメッセージを返す独自フック関数
+function useCalc(num=0, func = (a)=>{return a}) {
+  const [msg, setMsg] = useState(null)
+
+  const setValue = (p) => {
+    let res = func(p)
+    setMsg(<p className="h5">※{p}の結果は、{res}です。</p>)
+  }
+  return [msg, setValue]
+}
+
+//デフォルトのコンポーネント
+function PlainMessage(props) {
+  const [msg, setCalc] = useCalc()
+  
+  const onChange = (e) => {
+    setCalc(e.target.value)
+  }
+
   return (
-    <div className="alert alert-primary h5 text-primary">
-        <h5>{props.msg}</h5>
+    <div className="p-3 h5">
+      <h5>{msg}</h5>
+      <input className="form-control" type="number" onChange={onChange}/>
     </div>
   )
 }
 
-function App() {
-  const [val, setVal] = useState(1000)
-  const [tax1, setTax1] = useState(0)
-  const [tax2, setTax2] = useState(0)
-  const [msg, setMsg] = useState(<p>set a price...</p>)
+//合計計算のコンポーネント
+function AlertMessage(props) {
+  const [msg, setCalc] = useCalc(0, total)
 
-  const doChange = (e) => {
-    setVal(e.target.value)
+  const onChange = (e) => {
+    setCalc(e.target.value)
   }
 
-  useEffect(() => {
-    let res = (
-      <div>
-        <p>軽減税率(8%) : {tax1} 円</p>
-        <p>軽減税率(10%) : {tax2} 円</p>
-      </div>
-    )
-    setMsg(res)}, [tax1, tax2]
+  return (
+    <div className="alert alert-primary h5 text-primary">
+      <h5>{msg}</h5>
+      <input className="form-control" type="number" min="0" max="10000" onChange={onChange}/>
+    </div>
   )
+}
 
-  useEffect(() => {
-    setTax1(Math.floor(val * 1.08))
-  })
+// 消費税計算のコンポーネント
+function CardMessage(props) {
+  const [msg, setCalc] = useCalc(0, tax)
 
-  useEffect(() => {
-    setTax2(Math.floor(val * 1.11))
-  })
+  const onChange = (e) => {
+    setCalc(e.target.value)
+  }
 
+  return (
+    <div className="card p-3 h5 border-primary">
+      <h5>{msg}</h5>
+      <input className="form-control" type="range" min="0" max="10000" onChange={onChange} />
+    </div>
+  )
+}
+
+// ベースコンポーネント
+function App() {
   return (
     <div>
       <h1 className="bg-primary text-white display-4">React</h1>
-      <div calssName="container">
+      <div className="container">
         <h4 className="my-3">Hooks sample</h4>
-        <AlertMessage msg={msg} />
-        <div className="form-group">
-          <label>Input:</label>
-          <input className="form-control" type="number" onChange={doChange}/>
-        </div>
+        <PlainMessage />
+        <AlertMessage />
+        <CardMessage />
       </div>
     </div>
   )
