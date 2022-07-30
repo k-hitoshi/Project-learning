@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 import './App.css';
-import usePersist from './Persist';
+// import usePersist from './Persist';
+import MemoPage from './memo/MemoPage'
 
 // list 3-23
 // class App extends Component {
@@ -1117,69 +1118,82 @@ import usePersist from './Persist';
 //   )
 // }
 
-// リスト 4-19
+// リスト 4-20
 
-function AlertMessage(props) {
-  const [name, setName] = useState('')
-  const [mail, setMail] = useState('')
-  const [age, setEge] = useState('')
-  const [mydata, setMydata] = usePersist('mydata', null)
+// function AlertMessage(props) {
+//   const [name, setName] = useState('')
+//   const [mail, setMail] = useState('')
+//   const [age, setEge] = useState('')
+//   const [mydata, setMydata] = usePersist('mydata', null)
 
-  const onChangeName = (e) => {
-    setName(e.target.value)
-  }
+//   const onChangeName = (e) => {
+//     setName(e.target.value)
+//   }
 
-  const onChangeMail = (e) => {
-    setMail(e.target.value)
-  }
+//   const onChangeMail = (e) => {
+//     setMail(e.target.value)
+//   }
 
-  const onChangeAge = (e) => {
-    setEge(e.target.value)
-  }
+//   const onChangeAge = (e) => {
+//     setEge(e.target.value)
+//   }
 
-  const onAction = (e) => {
-    const data = {
-      name: name,
-      mail: mail,
-      age: age
-    }
-    setMydata(data)
-  }
+//   const onAction = (e) => {
+//     const data = {
+//       name: name,
+//       mail: mail,
+//       age: age
+//     }
+//     setMydata(data)
+//   }
 
+//   return (
+//     <div className="alert alert-primary h5 test-primary">
+//       <h5 className="mb-4">{JSON.stringify(mydata)}</h5>
+//       <div className="form-group">
+//         <label className="h6">Name</label>
+//         <input className="form-control" type="text" onChange={onChangeName} />
+//       </div>
+//       <div className="form-group">
+//         <label className="h6">Mail</label>
+//         <input className="form-control" type="mail" onChange={onChangeMail} />
+//       </div>
+//       <div className="form-group">
+//         <label className="h6">Age</label>
+//         <input className="form-control" type="text" onChange={onChangeAge} />
+//       </div>
+//       <button className="btn btn-primary" onClick={onAction}>
+//         Save it!
+//       </button>
+//     </div>
+//   )
+// }
+
+//   // ベースコンポーネント
+//   function App() {
+//     return (
+//       <div>
+//         <h1 className="bg-primary test-white display-4">React</h1>
+//         <div className="container">
+//           <h4 className="my-3">Hooks sample</h4>
+//           <AlertMessage />
+//         </div>
+//       </div>
+//     )
+//   }
+
+// 4-21
+function App() {
   return (
-    <div className="alert alert-primary h5 test-primary">
-      <h5 className="mb-4">{JSON.stringify(mydata)}</h5>
-      <div className="form-group">
-        <label className="h6">Name</label>
-        <input className="form-control" type="text" onChange={onChangeName} />
+    <div>
+      <h1 className="bg-primary text-white display-4">React</h1>
+      <div className="container">
+        <h4 className="mh-3">Memo.</h4>
+        <MemoPage />
       </div>
-      <div className="form-group">
-        <label className="h6">Mail</label>
-        <input className="form-control" type="mail" onChange={onChangeMail} />
-      </div>
-      <div className="form-group">
-        <label className="h6">Age</label>
-        <input className="form-control" type="text" onChange={onChangeAge} />
-      </div>
-      <button className="btn btn-primary" onClick={onAction}>
-        Save it!
-      </button>
     </div>
   )
 }
-
-  // ベースコンポーネント
-  function App() {
-    return (
-      <div>
-        <h1 className="bg-primary test-white display-4">React</h1>
-        <div className="container">
-          <h4 className="my-3">Hooks sample</h4>
-          <AlertMessage />
-        </div>
-      </div>
-    )
-  }
 
 export default App;
 

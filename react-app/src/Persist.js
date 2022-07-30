@@ -1,4 +1,4 @@
-// リスト4-18
+// リスト4-19
 import React, { useState } from "react";
 
 function usePersist(ky, initVal) {
