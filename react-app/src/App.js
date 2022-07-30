@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import usePersist from './Persist';
 
 // list 3-23
 // class App extends Component {
@@ -1029,92 +1030,156 @@ import './App.css';
 // リスト 4-17,18
 
 // 合計計算関数
-const total = (a) => {
-  let re = 0
-  for(let i=0; i<=a; i++) {
-    re += i
-  }
-  return re
-}
+// const total = (a) => {
+//   let re = 0
+//   for(let i=0; i<=a; i++) {
+//     re += i
+//   }
+//   return re
+// }
 
-// 消費税計算の関数
-const tax = (a) => {
-  return Math.floor(a * 1.1)
-}
+// // 消費税計算の関数
+// const tax = (a) => {
+//   return Math.floor(a * 1.1)
+// }
 
-// 数値を計算してメッセージを返す独自フック関数
-function useCalc(num=0, func = (a)=>{return a}) {
-  const [msg, setMsg] = useState(null)
+// // 数値を計算してメッセージを返す独自フック関数
+// function useCalc(num=0, func = (a)=>{return a}) {
+//   const [msg, setMsg] = useState(null)
 
-  const setValue = (p) => {
-    let res = func(p)
-    setMsg(<p className="h5">※{p}の結果は、{res}です。</p>)
-  }
-  return [msg, setValue]
-}
+//   const setValue = (p) => {
+//     let res = func(p)
+//     setMsg(<p className="h5">※{p}の結果は、{res}です。</p>)
+//   }
+//   return [msg, setValue]
+// }
 
-//デフォルトのコンポーネント
-function PlainMessage(props) {
-  const [msg, setCalc] = useCalc()
+// //デフォルトのコンポーネント
+// function PlainMessage(props) {
+//   const [msg, setCalc] = useCalc()
   
-  const onChange = (e) => {
-    setCalc(e.target.value)
-  }
+//   const onChange = (e) => {
+//     setCalc(e.target.value)
+//   }
 
-  return (
-    <div className="p-3 h5">
-      <h5>{msg}</h5>
-      <input className="form-control" type="number" onChange={onChange}/>
-    </div>
-  )
-}
+//   return (
+//     <div className="p-3 h5">
+//       <h5>{msg}</h5>
+//       <input className="form-control" type="number" onChange={onChange}/>
+//     </div>
+//   )
+// }
 
-//合計計算のコンポーネント
+// //合計計算のコンポーネント
+// function AlertMessage(props) {
+//   const [msg, setCalc] = useCalc(0, total)
+
+//   const onChange = (e) => {
+//     setCalc(e.target.value)
+//   }
+
+//   return (
+//     <div className="alert alert-primary h5 text-primary">
+//       <h5>{msg}</h5>
+//       <input className="form-control" type="number" min="0" max="10000" onChange={onChange}/>
+//     </div>
+//   )
+// }
+
+// // 消費税計算のコンポーネント
+// function CardMessage(props) {
+//   const [msg, setCalc] = useCalc(0, tax)
+
+//   const onChange = (e) => {
+//     setCalc(e.target.value)
+//   }
+
+//   return (
+//     <div className="card p-3 h5 border-primary">
+//       <h5>{msg}</h5>
+//       <input className="form-control" type="range" min="0" max="10000" onChange={onChange} />
+//     </div>
+//   )
+// }
+
+// // ベースコンポーネント
+// function App() {
+//   return (
+//     <div>
+//       <h1 className="bg-primary text-white display-4">React</h1>
+//       <div className="container">
+//         <h4 className="my-3">Hooks sample</h4>
+//         <PlainMessage />
+//         <AlertMessage />
+//         <CardMessage />
+//       </div>
+//     </div>
+//   )
+// }
+
+// リスト 4-19
+
 function AlertMessage(props) {
-  const [msg, setCalc] = useCalc(0, total)
+  const [name, setName] = useState('')
+  const [mail, setMail] = useState('')
+  const [age, setEge] = useState('')
+  const [mydata, setMydata] = usePersist('mydata', null)
 
-  const onChange = (e) => {
-    setCalc(e.target.value)
+  const onChangeName = (e) => {
+    setName(e.target.value)
+  }
+
+  const onChangeMail = (e) => {
+    setMail(e.target.value)
+  }
+
+  const onChangeAge = (e) => {
+    setEge(e.target.value)
+  }
+
+  const onAction = (e) => {
+    const data = {
+      name: name,
+      mail: mail,
+      age: age
+    }
+    setMydata(data)
   }
 
   return (
-    <div className="alert alert-primary h5 text-primary">
-      <h5>{msg}</h5>
-      <input className="form-control" type="number" min="0" max="10000" onChange={onChange}/>
-    </div>
-  )
-}
-
-// 消費税計算のコンポーネント
-function CardMessage(props) {
-  const [msg, setCalc] = useCalc(0, tax)
-
-  const onChange = (e) => {
-    setCalc(e.target.value)
-  }
-
-  return (
-    <div className="card p-3 h5 border-primary">
-      <h5>{msg}</h5>
-      <input className="form-control" type="range" min="0" max="10000" onChange={onChange} />
-    </div>
-  )
-}
-
-// ベースコンポーネント
-function App() {
-  return (
-    <div>
-      <h1 className="bg-primary text-white display-4">React</h1>
-      <div className="container">
-        <h4 className="my-3">Hooks sample</h4>
-        <PlainMessage />
-        <AlertMessage />
-        <CardMessage />
+    <div className="alert alert-primary h5 test-primary">
+      <h5 className="mb-4">{JSON.stringify(mydata)}</h5>
+      <div className="form-group">
+        <label className="h6">Name</label>
+        <input className="form-control" type="text" onChange={onChangeName} />
       </div>
+      <div className="form-group">
+        <label className="h6">Mail</label>
+        <input className="form-control" type="mail" onChange={onChangeMail} />
+      </div>
+      <div className="form-group">
+        <label className="h6">Age</label>
+        <input className="form-control" type="text" onChange={onChangeAge} />
+      </div>
+      <button className="btn btn-primary" onClick={onAction}>
+        Save it!
+      </button>
     </div>
   )
 }
+
+  // ベースコンポーネント
+  function App() {
+    return (
+      <div>
+        <h1 className="bg-primary test-white display-4">React</h1>
+        <div className="container">
+          <h4 className="my-3">Hooks sample</h4>
+          <AlertMessage />
+        </div>
+      </div>
+    )
+  }
 
 export default App;
 
