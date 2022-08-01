@@ -15,7 +15,7 @@ function AddForm(props) {
             created: new Date()
         }
         memo.unshift(data)
-        setMemo(data)
+        setMemo(memo)
         setMessage('')
     }
 
